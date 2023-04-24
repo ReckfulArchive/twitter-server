@@ -64,3 +64,7 @@
     color: #C1C1C7;
     font-weight: bold;
 }
+
+.tweeter-info > .location span {
+    color: #808080;
+}

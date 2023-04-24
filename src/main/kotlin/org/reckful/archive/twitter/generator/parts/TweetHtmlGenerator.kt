@@ -49,7 +49,8 @@ class TweetHtmlGenerator(
             generateTweeterInfo(
                 name = tweet.user.name,
                 handle = tweet.user.handle,
-                dateSent = tweet.utcDateTime
+                dateSent = tweet.utcDateTime,
+                fromLocation = tweet.location
             )
             replyingToHandles.takeIf { it.isNotEmpty() }?.let {
                 generateReplyingToHandlesHeader(it)
@@ -73,7 +74,8 @@ class TweetHtmlGenerator(
     private fun FlowContent.generateTweeterInfo(
         name: String? = null,
         handle: String? = null,
-        dateSent: ZonedDateTime? = null
+        dateSent: ZonedDateTime? = null,
+        fromLocation: Location? = null
     ) {
         div(classes = "tweeter-info") {
             name?.let { span(classes = "name") { +it } }
@@ -81,6 +83,13 @@ class TweetHtmlGenerator(
             dateSent?.let {
                 span(classes = "separator") { +"•" }
                 span(classes = "date-sent") { +DATE_SENT_FORMATTER.format(it) }
+            }
+            fromLocation?.let {
+                span(classes = "separator") { +"•" }
+                span(classes = "location") {
+                    span { +"from ${it.place} " }
+                    img(src = "https://flagcdn.com/16x12/${it.countryCode.lowercase()}.png")
+                }
             }
         }
     }
