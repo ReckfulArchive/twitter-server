@@ -68,6 +68,7 @@ class VicinitasTweetParser(
         return tokens[19]
             .takeIf { it.isNotBlank() }
             ?.split(WHITESPACE_REGEX)
+            ?.map { it.trim() }
             ?.filter { it.isNotBlank() }
             ?: emptyList()
     }

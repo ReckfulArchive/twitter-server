@@ -58,7 +58,8 @@ class PostMapper(
             source = getTweetSource(vicinitasTweet),
             retweetOfHandle = retweetOfHandle,
             retweetOfMedia = getMedia(vicinitasTweet),
-            retweetOfText = retweetOfText.stripOfLinks(),
+            retweetOfText = retweetOfText.stripText(),
+            retweetUrls = vicinitasTweet.urls,
             quoteWithinRetweet = getQuote(vicinitasTweet)
         )
     }
@@ -87,7 +88,7 @@ class PostMapper(
             location = getTweetLocation(vicinitasTweet),
             media = getMedia(vicinitasTweet),
             urls = vicinitasTweet.urls,
-            text = vicinitasTweet.text.stripOfLinks()
+            text = vicinitasTweet.text.stripText()
         )
     }
 
@@ -115,7 +116,7 @@ class PostMapper(
         return Quote(
             quotedTweetUrl = quotedTweetUrl,
             quotedHandle = getHandleFromStatusUrl(quotedTweetUrl),
-            text = vicinitasTweet.quote.stripOfLinks()
+            text = vicinitasTweet.quote.stripText()
         )
     }
 
@@ -159,8 +160,8 @@ class PostMapper(
             }
     }
 
-    private fun String.stripOfLinks(): String {
-        return this.replace(T_CO_LINK_PATTERN, "")
+    private fun String.stripText(): String {
+        return this.replace(T_CO_LINK_PATTERN, "").trim()
     }
 
     companion object {

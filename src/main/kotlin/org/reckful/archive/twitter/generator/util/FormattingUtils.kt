@@ -1,4 +1,4 @@
-package org.reckful.archive.twitter.generator
+package org.reckful.archive.twitter.generator.util
 
 import java.math.RoundingMode
 import java.text.DecimalFormat

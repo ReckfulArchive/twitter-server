@@ -2,7 +2,8 @@ package org.reckful.archive.twitter.generator.parts
 
 import kotlinx.html.*
 import org.reckful.archive.twitter.generator.AssetLocator
-import org.reckful.archive.twitter.generator.formatCompact
+import org.reckful.archive.twitter.generator.util.*
+import org.reckful.archive.twitter.generator.util.formatCompact
 import org.reckful.archive.twitter.model.*
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -54,7 +55,7 @@ class TweetHtmlGenerator(
                 generateReplyingToHandlesHeader(it)
             }
             tweet.text.takeIf { it.isNotBlank() }?.let {
-                generateTweetText(it)
+                generateTweetText(it, tweet.urls)
             }
             with(mediaHtmlGenerator) {
                 generateMediaContent(tweet.media)
@@ -97,9 +98,29 @@ class TweetHtmlGenerator(
         }
     }
 
-    private fun FlowContent.generateTweetText(text: String) {
+    private fun FlowContent.generateTweetText(text: String, knownUrls: List<String>) {
+        val textTokens = TextTokenParser.parse(text = text, knownUrls =  knownUrls)
         div(classes = "tweet-text") {
-            p { +text }
+            p {
+                textTokens.forEach { token ->
+                    when(token) {
+                        is TextToken -> +token.text
+                        is UrlToken -> {
+                            a(href = token.url) {
+                                +token.url
+                                    .removePrefix("https://")
+                                    .removePrefix("http://")
+                                    .removePrefix("www.")
+                            }
+                        }
+                        is HandleToken -> {
+                            a(href = "https://twitter.com/${token.handle}") {
+                                +"@${token.handle}"
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -123,7 +144,7 @@ class TweetHtmlGenerator(
             div(classes = "tweet-content") {
                 generateTweeterInfo(name = "@${retweetTweet.retweetOfHandle}")
                 retweetTweet.retweetOfText.takeIf { it.isNotBlank() }?.let {
-                    generateTweetText(it)
+                    generateTweetText(it, retweetTweet.retweetUrls)
                 }
                 with(mediaHtmlGenerator) {
                     generateMediaContent(retweetTweet.retweetOfMedia)

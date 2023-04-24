@@ -11,6 +11,7 @@ data class RetweetTweet(
     val retweetOfHandle: String,
     val retweetOfMedia: List<Media> = emptyList(),
     val retweetOfText: String,
+    val retweetUrls: List<String> = emptyList(),
 
     val quoteWithinRetweet: Quote? = null
 ): Post

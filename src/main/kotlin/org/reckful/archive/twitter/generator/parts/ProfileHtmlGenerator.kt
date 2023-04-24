@@ -2,7 +2,7 @@ package org.reckful.archive.twitter.generator.parts
 
 import kotlinx.html.*
 import org.reckful.archive.twitter.generator.AssetLocator
-import org.reckful.archive.twitter.generator.formatCompact
+import org.reckful.archive.twitter.generator.util.formatCompact
 import org.reckful.archive.twitter.model.Profile
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
