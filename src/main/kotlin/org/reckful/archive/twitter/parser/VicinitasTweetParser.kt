@@ -54,7 +54,7 @@ class VicinitasTweetParser(
 
     private fun parseMedia(tokens: List<String>): List<VicinitasTweetMedia> {
         val mediaTypes = tokens[14].takeIf { it.isNotBlank() }?.split(WHITESPACE_REGEX) ?: return emptyList()
-        mediaTypes.mapIndexed { index, mediaType ->
+        return mediaTypes.mapIndexed { index, mediaType ->
             // media1 == 15
             // media2 == 16
             // media3 == 17
@@ -62,7 +62,6 @@ class VicinitasTweetParser(
             val tokenIndex = 15 + index
             VicinitasTweetMedia(mediaType, checkNotEmpty(tokens[tokenIndex]))
         }
-        return emptyList()
     }
 
     private fun parseUrls(tokens: List<String>): List<String> {
