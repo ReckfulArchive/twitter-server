@@ -27,10 +27,10 @@ data class Location(
     val longitude: Double,
 )
 
-abstract class Media(
-    val url: String
-)
+abstract class Media {
+    abstract val url: String
+}
 
-class PhotoMedia(url: String) : Media(url)
-class GifMedia(url: String) : Media(url)
-class VideoMedia(url: String) : Media(url)
+data class PhotoMedia(override val url: String) : Media()
+data class GifMedia(override val url: String) : Media()
+data class VideoMedia(override val url: String) : Media()

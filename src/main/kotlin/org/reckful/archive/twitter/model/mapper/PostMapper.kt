@@ -52,7 +52,7 @@ class PostMapper(
     private fun mapRetweet(vicinitasTweet: VicinitasTweet): RetweetTweet {
         val (retweetOfHandle, retweetOfText) = deconstructRetweetText(vicinitasTweet)
         return RetweetTweet(
-            id = vicinitasTweet.tweetId,
+            tweetId = vicinitasTweet.tweetId,
             user = usersByHandle.getValue(vicinitasTweet.screenName),
             utcDateTime = vicinitasTweet.utcDate.atZone(postZoneId),
             source = getTweetSource(vicinitasTweet),

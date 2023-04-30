@@ -3,7 +3,7 @@ package org.reckful.archive.twitter.model
 import java.time.ZonedDateTime
 
 data class RetweetTweet(
-    val id: String,
+    val tweetId: String,
     val user: User,
     val utcDateTime: ZonedDateTime,
     val source: Source? = null,
