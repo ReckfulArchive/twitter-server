@@ -1,0 +1,14 @@
+package org.reckful.archive.twitter.server.model.tweet
+
+sealed class TweetMedia {
+    abstract val tweetId: String
+
+    /**
+     * Note: this URL leads to Twitter's servers, and it's not guaranteed to exist for long
+     */
+    abstract val originalUrl: String
+}
+
+data class GifTweetMedia(override val tweetId: String, override val originalUrl: String) : TweetMedia()
+data class PhotoTweetMedia(override val tweetId: String, override val originalUrl: String) : TweetMedia()
+data class VideoTweetMedia(override val tweetId: String, override val originalUrl: String) : TweetMedia()

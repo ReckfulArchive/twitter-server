@@ -1,0 +1,12 @@
+spring:
+  jackson:
+    default-property-inclusion: non_null
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+importer:
+  data:
+    vicinitas:
+      tweets-tsv: ~/twitter-data/data/vicinitas/tweets.tsv

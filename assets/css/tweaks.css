@@ -1,0 +1,70 @@
+.page {
+    background-color: #2C2F33;
+}
+
+/* Center the page content out */
+.page-content {
+    margin: auto;
+    max-width: 600px;
+}
+
+.content {
+    margin-bottom: 50px;
+    /* add margin because of the bottom nav bar */
+}
+
+/* Remove the default bottom divider, want to add our own */
+.profile {
+    border-bottom: 0;
+}
+
+/* Correct profile pic placement because the buttons have been removed */
+.prof-pic-and-buttons-row {
+    margin-bottom: 25px;
+}
+
+/* Our own divider between profile info and buttons with side borders */
+.profile-divider {
+    height: 2px;
+    background-color: #2C2F33;
+}
+
+/* Border for content whose color does not match the border color. */
+/* Otherwise this content blends in with background color. */
+/* Other elements are already of that color, so they don't need the extra border */
+.header-photo, .profile-divider, .content {
+    border-left: 2px solid #23272A;
+    border-right: 2px solid #23272A;
+}
+
+.location-link-bday-joined > div > img {
+    padding-right: 4px;
+}
+
+.tweet-content > .replying-to {
+    margin-top: 3px;
+}
+
+.reply-tweet {
+    display: none;
+}
+
+.retweeted-block {
+    display: block;
+    margin-left: 32px;
+    padding-bottom: 15px;
+}
+
+.retweeted-block > img {
+    height: 13px;
+    width: 13px;
+}
+
+.retweeted-text {
+    color: #C1C1C7;
+    font-weight: bold;
+}
+
+.tweeter-info > .location span {
+    color: #808080;
+}

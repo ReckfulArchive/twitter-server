@@ -1,0 +1,15 @@
+[versions]
+
+kotlin = "1.8.20"
+spring-boot = "3.0.6"
+spring-doc = "2.1.0"
+spring-dependencyManagement = "1.1.0"
+
+[libraries]
+
+springdoc-openapi-starter = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "spring-doc" }
+
+gradlePlugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+gradlePlugin-spring-kotlin = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
+gradlePlugin-spring-boot = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "spring-boot" }
+gradlePlugin-spring-dependencyManagement = { module = "io.spring.gradle:dependency-management-plugin", version.ref = "spring-dependencyManagement" }
