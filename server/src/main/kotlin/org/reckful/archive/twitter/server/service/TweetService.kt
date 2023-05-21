@@ -14,6 +14,7 @@ import org.reckful.archive.twitter.server.repository.ProfileRepository
 import org.reckful.archive.twitter.server.repository.TweetQueryParameters
 import org.reckful.archive.twitter.server.repository.TweetRepository
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import kotlin.reflect.KClass
 
 @Service
@@ -30,6 +31,8 @@ class TweetService(
         types: List<String>,
         onlyWithMedia: Boolean,
         containsText: String?,
+        fromDate: LocalDate?,
+        toDate: LocalDate?,
         sortOrder: SortOrder = SortOrder.DESC,
         page: Int,
         limit: Int
@@ -41,6 +44,8 @@ class TweetService(
                 types = types.map { typeToKClass(it) },
                 onlyWithMedia = onlyWithMedia,
                 containsText = containsText,
+                fromDate = fromDate,
+                toDate = toDate,
                 sortOrder = sortOrder,
                 offset = page * limit,
                 limit = limit

@@ -6,6 +6,7 @@ import org.reckful.archive.twitter.server.model.tweet.ReplyTweet
 import org.reckful.archive.twitter.server.model.tweet.RetweetTweet
 import org.reckful.archive.twitter.server.model.tweet.Tweet
 import org.springframework.stereotype.Repository
+import java.time.LocalDate
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 import kotlin.reflect.KClass
@@ -20,6 +21,7 @@ class InMemoryTweetRepository : TweetRepository {
         val tweets = handleToTweets[queryParameters.profileHandle.lowercase()] ?: return emptyList()
         return tweets.asSequence()
             .sortedWith(queryParameters.sortOrder)
+            .filterWithinDates(queryParameters.fromDate, queryParameters.toDate)
             .filterByTypes(queryParameters.types)
             .filterOnlyWithMedia(queryParameters.onlyWithMedia)
             .filterContainsText(queryParameters.containsText)
@@ -32,6 +34,23 @@ class InMemoryTweetRepository : TweetRepository {
         return when (sortOrder) {
             SortOrder.ASC -> this.sortedBy { it.utcDateTime }
             SortOrder.DESC -> this.sortedByDescending { it.utcDateTime }
+        }
+    }
+
+    private fun Sequence<Tweet>.filterWithinDates(fromDate: LocalDate?, toDate: LocalDate?): Sequence<Tweet> {
+        if (fromDate == null && toDate == null) {
+            return this
+        }
+        return this.filter {
+            val tweetDate = it.utcDateTime.toLocalDate()
+            if (fromDate != null && toDate != null) {
+                (tweetDate.isEqual(fromDate) || tweetDate.isAfter(fromDate)) &&
+                        (tweetDate.isEqual(toDate) || tweetDate.isBefore(toDate))
+            } else if (fromDate != null) {
+                tweetDate.isEqual(fromDate) || tweetDate.isAfter(fromDate)
+            } else {
+                tweetDate.isEqual(toDate) || tweetDate.isBefore(toDate)
+            }
         }
     }
 
