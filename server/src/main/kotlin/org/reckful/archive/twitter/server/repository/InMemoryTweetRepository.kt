@@ -22,6 +22,7 @@ class InMemoryTweetRepository : TweetRepository {
             .sortedWith(queryParameters.sortOrder)
             .filterByTypes(queryParameters.types)
             .filterOnlyWithMedia(queryParameters.onlyWithMedia)
+            .filterContainsText(queryParameters.containsText)
             .drop(queryParameters.offset)
             .take(queryParameters.limit)
             .toList()
@@ -55,6 +56,30 @@ class InMemoryTweetRepository : TweetRepository {
             is RetweetTweet -> this.retweetOfMedia.isNotEmpty()
         }
     }
+
+    private fun Sequence<Tweet>.filterContainsText(containsText: String?): Sequence<Tweet> {
+        return if (containsText == null) {
+            this
+        } else {
+            this.filter { it.containsText(containsText) }
+        }
+    }
+
+    private fun Tweet.containsText(text: String): Boolean {
+        return when(this) {
+            is ReplyTweet -> this.tweet.containsText(text)
+            is PostTweet -> {
+                this.text.containsIgnoreCase(text) ||
+                        this.quote?.text?.containsIgnoreCase(text) == true
+            }
+            is RetweetTweet -> {
+                this.retweetOfText.containsIgnoreCase(text) ||
+                        this.quoteWithinRetweet?.text?.containsIgnoreCase(text) == true
+            }
+        }
+    }
+
+    private fun String.containsIgnoreCase(other: String): Boolean = this.lowercase().contains(other.lowercase())
 
     override fun saveAll(tweets: List<Tweet>) {
         val tweetsByHandle = tweets.groupBy { it.getAuthorHandle() }

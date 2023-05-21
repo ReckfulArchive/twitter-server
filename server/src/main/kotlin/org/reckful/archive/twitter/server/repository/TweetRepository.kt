@@ -14,6 +14,7 @@ data class TweetQueryParameters(
     val profileHandle: String,
     val types: List<KClass<out Tweet>>,
     val onlyWithMedia: Boolean,
+    val containsText: String?,
     val sortOrder: SortOrder,
     val offset: Int,
     val limit: Int,

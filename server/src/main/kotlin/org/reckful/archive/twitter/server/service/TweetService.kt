@@ -29,6 +29,7 @@ class TweetService(
         profileHandle: String,
         types: List<String>,
         onlyWithMedia: Boolean,
+        containsText: String?,
         sortOrder: SortOrder = SortOrder.DESC,
         page: Int,
         limit: Int
@@ -39,6 +40,7 @@ class TweetService(
                 profileHandle = profile.handle,
                 types = types.map { typeToKClass(it) },
                 onlyWithMedia = onlyWithMedia,
+                containsText = containsText,
                 sortOrder = sortOrder,
                 offset = page * limit,
                 limit = limit

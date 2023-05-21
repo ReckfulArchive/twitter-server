@@ -22,6 +22,7 @@ class TweetController(
         @PathVariable("handle") handle: String,
         @RequestParam("type", required = false, defaultValue = "post") types: List<String>,
         @RequestParam("only_with_media", required = false, defaultValue = "false") onlyWithMedia: Boolean,
+        @RequestParam("contains_text", required = false) containsText: String?,
         @RequestParam("sort", required = false, defaultValue = "desc") sort: String,
         @RequestParam("page", required = false, defaultValue = "0") page: Int,
         @RequestParam("limit", required = false, defaultValue = "25") limit: Int
@@ -32,6 +33,7 @@ class TweetController(
             profileHandle = profile.handle,
             types = types,
             onlyWithMedia = onlyWithMedia,
+            containsText = containsText,
             sortOrder = sortOrder,
             page = page,
             limit = limit
