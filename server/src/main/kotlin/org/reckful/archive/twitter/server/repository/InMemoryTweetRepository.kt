@@ -1,5 +1,6 @@
 package org.reckful.archive.twitter.server.repository
 
+import org.reckful.archive.twitter.server.model.SortOrder
 import org.reckful.archive.twitter.server.model.tweet.PostTweet
 import org.reckful.archive.twitter.server.model.tweet.ReplyTweet
 import org.reckful.archive.twitter.server.model.tweet.RetweetTweet
@@ -14,11 +15,19 @@ class InMemoryTweetRepository : TweetRepository {
     private val handleToTweets: ConcurrentMap<String, List<Tweet>> = ConcurrentHashMap()
 
     override fun findBy(queryParameters: TweetQueryParameters): List<Tweet> {
-        val tweets = handleToTweets[queryParameters.profileHandle.lowercase()] ?: emptyList()
-        return tweets.subList(
-            fromIndex = queryParameters.offset,
-            toIndex = minOf(queryParameters.offset + queryParameters.limit, tweets.size)
-        )
+        val tweets = handleToTweets[queryParameters.profileHandle.lowercase()] ?: return emptyList()
+        return tweets.asSequence()
+            .sortedWith(queryParameters.sortOrder)
+            .drop(queryParameters.offset)
+            .take(queryParameters.limit)
+            .toList()
+    }
+
+    private fun Sequence<Tweet>.sortedWith(sortOrder: SortOrder): Sequence<Tweet> {
+        return when (sortOrder) {
+            SortOrder.ASC -> this.sortedBy { it.utcDateTime }
+            SortOrder.DESC -> this.sortedByDescending { it.utcDateTime }
+        }
     }
 
     override fun saveAll(tweets: List<Tweet>) {

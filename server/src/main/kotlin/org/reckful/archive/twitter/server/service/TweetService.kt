@@ -24,11 +24,17 @@ class TweetService(
     private val counterMapper: CounterMapper,
     private val tweetTextMapper: TextMapper,
 ) {
-    fun getByProfileHandle(profileHandle: String, page: Int, limit: Int): List<TweetDTO> {
+    fun getByProfileHandle(
+        profileHandle: String,
+        sortOrder: SortOrder = SortOrder.DESC,
+        page: Int,
+        limit: Int
+    ): List<TweetDTO> {
         val profile = profileRepository.findByHandle(profileHandle) ?: return emptyList()
         val tweets = tweetRepository.findBy(
             TweetQueryParameters(
                 profileHandle = profile.handle,
+                sortOrder = sortOrder,
                 offset = page * limit,
                 limit = limit
             )

@@ -9,4 +9,4 @@ springdoc:
 importer:
   data:
     vicinitas:
-      tweets-tsv: ~/twitter-data/data/vicinitas/tweets.tsv
+      tweets-tsv: /home/ignat/IdeaProjects/twitter-data/data/vicinitas/tweets.tsv

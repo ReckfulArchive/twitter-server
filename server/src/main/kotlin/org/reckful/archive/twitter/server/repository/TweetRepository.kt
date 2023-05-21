@@ -1,5 +1,6 @@
 package org.reckful.archive.twitter.server.repository
 
+import org.reckful.archive.twitter.server.model.SortOrder
 import org.reckful.archive.twitter.server.model.tweet.Tweet
 
 interface TweetRepository {
@@ -10,6 +11,7 @@ interface TweetRepository {
 
 data class TweetQueryParameters(
     val profileHandle: String,
+    val sortOrder: SortOrder,
     val offset: Int,
     val limit: Int
 )
