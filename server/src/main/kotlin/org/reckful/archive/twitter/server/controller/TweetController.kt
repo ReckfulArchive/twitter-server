@@ -21,6 +21,7 @@ class TweetController(
     fun getByHandle(
         @PathVariable("handle") handle: String,
         @RequestParam("type", required = false, defaultValue = "post") types: List<String>,
+        @RequestParam("only_with_media", required = false, defaultValue = "false") onlyWithMedia: Boolean,
         @RequestParam("sort", required = false, defaultValue = "desc") sort: String,
         @RequestParam("page", required = false, defaultValue = "0") page: Int,
         @RequestParam("limit", required = false, defaultValue = "25") limit: Int
@@ -30,6 +31,7 @@ class TweetController(
         return tweetService.getByProfileHandle(
             profileHandle = profile.handle,
             types = types,
+            onlyWithMedia = onlyWithMedia,
             sortOrder = sortOrder,
             page = page,
             limit = limit

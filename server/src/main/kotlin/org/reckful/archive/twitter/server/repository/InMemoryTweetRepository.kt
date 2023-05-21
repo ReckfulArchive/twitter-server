@@ -21,6 +21,7 @@ class InMemoryTweetRepository : TweetRepository {
         return tweets.asSequence()
             .sortedWith(queryParameters.sortOrder)
             .filterByTypes(queryParameters.types)
+            .filterOnlyWithMedia(queryParameters.onlyWithMedia)
             .drop(queryParameters.offset)
             .take(queryParameters.limit)
             .toList()
@@ -36,6 +37,22 @@ class InMemoryTweetRepository : TweetRepository {
     private fun Sequence<Tweet>.filterByTypes(types: List<KClass<out Tweet>>): Sequence<Tweet> {
         return this.filter { tweet ->
             types.any { tweet::class.isSubclassOf(it) }
+        }
+    }
+
+    private fun Sequence<Tweet>.filterOnlyWithMedia(onlyWithMedia: Boolean): Sequence<Tweet> {
+        return if (onlyWithMedia) {
+            this.filter { it.hasMedia() }
+        } else {
+            return this
+        }
+    }
+
+    private fun Tweet.hasMedia(): Boolean {
+        return when(this) {
+            is PostTweet -> this.media.isNotEmpty()
+            is ReplyTweet -> this.tweet.media.isNotEmpty()
+            is RetweetTweet -> this.retweetOfMedia.isNotEmpty()
         }
     }
 

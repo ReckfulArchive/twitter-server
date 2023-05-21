@@ -28,6 +28,7 @@ class TweetService(
     fun getByProfileHandle(
         profileHandle: String,
         types: List<String>,
+        onlyWithMedia: Boolean,
         sortOrder: SortOrder = SortOrder.DESC,
         page: Int,
         limit: Int
@@ -37,6 +38,7 @@ class TweetService(
             TweetQueryParameters(
                 profileHandle = profile.handle,
                 types = types.map { typeToKClass(it) },
+                onlyWithMedia = onlyWithMedia,
                 sortOrder = sortOrder,
                 offset = page * limit,
                 limit = limit

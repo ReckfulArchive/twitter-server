@@ -13,7 +13,8 @@ interface TweetRepository {
 data class TweetQueryParameters(
     val profileHandle: String,
     val types: List<KClass<out Tweet>>,
+    val onlyWithMedia: Boolean,
     val sortOrder: SortOrder,
     val offset: Int,
-    val limit: Int
+    val limit: Int,
 )
