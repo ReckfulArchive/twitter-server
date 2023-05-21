@@ -14,6 +14,7 @@ import org.reckful.archive.twitter.server.repository.ProfileRepository
 import org.reckful.archive.twitter.server.repository.TweetQueryParameters
 import org.reckful.archive.twitter.server.repository.TweetRepository
 import org.springframework.stereotype.Service
+import kotlin.reflect.KClass
 
 @Service
 class TweetService(
@@ -26,6 +27,7 @@ class TweetService(
 ) {
     fun getByProfileHandle(
         profileHandle: String,
+        types: List<String>,
         sortOrder: SortOrder = SortOrder.DESC,
         page: Int,
         limit: Int
@@ -34,6 +36,7 @@ class TweetService(
         val tweets = tweetRepository.findBy(
             TweetQueryParameters(
                 profileHandle = profile.handle,
+                types = types.map { typeToKClass(it) },
                 sortOrder = sortOrder,
                 offset = page * limit,
                 limit = limit
@@ -46,6 +49,15 @@ class TweetService(
                 is ReplyTweet -> mapReply(tweet, profile)
                 is RetweetTweet -> mapRetweet(tweet, profile)
             }
+        }
+    }
+
+    private fun typeToKClass(type: String): KClass<out Tweet> {
+        return when(type) {
+            "post" -> PostTweet::class
+            "reply" -> ReplyTweet::class
+            "retweet" -> RetweetTweet::class
+            else -> throw IllegalArgumentException("Unknown tweet type: $type")
         }
     }
 

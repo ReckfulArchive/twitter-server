@@ -8,6 +8,8 @@ import org.reckful.archive.twitter.server.model.tweet.Tweet
 import org.springframework.stereotype.Repository
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
+import kotlin.reflect.KClass
+import kotlin.reflect.full.isSubclassOf
 
 @Repository
 class InMemoryTweetRepository : TweetRepository {
@@ -18,6 +20,7 @@ class InMemoryTweetRepository : TweetRepository {
         val tweets = handleToTweets[queryParameters.profileHandle.lowercase()] ?: return emptyList()
         return tweets.asSequence()
             .sortedWith(queryParameters.sortOrder)
+            .filterByTypes(queryParameters.types)
             .drop(queryParameters.offset)
             .take(queryParameters.limit)
             .toList()
@@ -27,6 +30,12 @@ class InMemoryTweetRepository : TweetRepository {
         return when (sortOrder) {
             SortOrder.ASC -> this.sortedBy { it.utcDateTime }
             SortOrder.DESC -> this.sortedByDescending { it.utcDateTime }
+        }
+    }
+
+    private fun Sequence<Tweet>.filterByTypes(types: List<KClass<out Tweet>>): Sequence<Tweet> {
+        return this.filter { tweet ->
+            types.any { tweet::class.isSubclassOf(it) }
         }
     }
 

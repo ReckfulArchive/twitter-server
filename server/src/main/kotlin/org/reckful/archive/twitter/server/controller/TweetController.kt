@@ -20,12 +20,19 @@ class TweetController(
     @GetMapping("/{handle}")
     fun getByHandle(
         @PathVariable("handle") handle: String,
+        @RequestParam("type", required = false, defaultValue = "post") types: List<String>,
         @RequestParam("sort", required = false, defaultValue = "desc") sort: String,
         @RequestParam("page", required = false, defaultValue = "0") page: Int,
         @RequestParam("limit", required = false, defaultValue = "25") limit: Int
     ): List<TweetDTO> {
         val profile = profileService.getByHandle(handle) ?: throw IllegalArgumentException("Unknown handle: $handle")
         val sortOrder = SortOrder.fromString(sort) ?: throw IllegalArgumentException("Unknown sort order: $sort")
-        return tweetService.getByProfileHandle(profile.handle, sortOrder, page, limit)
+        return tweetService.getByProfileHandle(
+            profileHandle = profile.handle,
+            types = types,
+            sortOrder = sortOrder,
+            page = page,
+            limit = limit
+        )
     }
 }
