@@ -66,7 +66,7 @@ class TweetService(
             "post" -> PostTweet::class
             "reply" -> ReplyTweet::class
             "retweet" -> RetweetTweet::class
-            else -> throw IllegalArgumentException("Unknown tweet type: $type")
+            else -> throw IllegalArgumentException("Unknown tweet type: $type; expected: post, reply, retweet.")
         }
     }
 
@@ -155,7 +155,7 @@ class TweetService(
             id = retweetTweet.id,
             twitterUrl = retweetTweet.getTwitterUrl(),
             profileName = profile.name,
-            retweetedProfileProfilePicUrl = "TODO",
+            retweetedProfilePicUrl = "TODO",
             retweetedProfileHandle = retweetTweet.retweetOfHandle,
             retweetedText = tweetTextMapper.map(
                 text = retweetTweet.retweetOfText,

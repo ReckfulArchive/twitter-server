@@ -1,5 +1,8 @@
 package org.reckful.archive.twitter.server.dto
 
+import io.swagger.v3.oas.annotations.media.Schema
+
+@Schema(name = "Profile", description = "Information about a profile.")
 data class ProfileDTO(
     val name: String,
     val handle: String,

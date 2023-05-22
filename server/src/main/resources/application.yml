@@ -5,6 +5,8 @@ spring:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+    default-models-expand-depth: 0
+  disable-i18n: true
 
 importer:
   data:

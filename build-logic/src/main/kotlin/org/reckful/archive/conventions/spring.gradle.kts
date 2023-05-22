@@ -19,8 +19,9 @@ tasks.withType<KotlinCompile> {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
