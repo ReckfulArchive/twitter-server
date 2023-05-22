@@ -1,7 +1,6 @@
 package org.reckful.archive.twitter.server.dto.tweet
 
 import io.swagger.v3.oas.annotations.media.Schema
-import io.swagger.v3.oas.annotations.tags.Tag
 import org.reckful.archive.twitter.server.dto.*
 
 @Schema(
@@ -27,7 +26,7 @@ class PostTweetDTO(
 
     @Schema(
         description = "Any media attached to the tweet, such as photos/gif/video. " +
-            "In a single tweet there can be: 1-3 photos OR 1 gif OR 1 video."
+                "In a single tweet there can be: 1-3 photos OR 1 gif OR 1 video."
     )
     val media: List<MediaDTO> = emptyList(),
 

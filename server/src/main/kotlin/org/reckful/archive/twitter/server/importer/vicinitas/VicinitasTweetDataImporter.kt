@@ -1,7 +1,7 @@
 package org.reckful.archive.twitter.server.importer.vicinitas
 
 import org.reckful.archive.twitter.server.importer.DataImporter
-import org.reckful.archive.twitter.server.model.*
+import org.reckful.archive.twitter.server.model.Location
 import org.reckful.archive.twitter.server.model.tweet.*
 import org.reckful.archive.twitter.server.repository.TweetRepository
 import org.reckful.archive.twitter.vicinitas.TsvVicinitasTweetParser

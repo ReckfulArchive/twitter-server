@@ -1,7 +1,6 @@
 package org.reckful.archive.twitter.server.dto.tweet
 
 import io.swagger.v3.oas.annotations.media.Schema
-import io.swagger.v3.oas.annotations.tags.Tag
 import org.reckful.archive.twitter.server.dto.MediaDTO
 import org.reckful.archive.twitter.server.dto.QuoteDTO
 import org.reckful.archive.twitter.server.dto.TextDTO

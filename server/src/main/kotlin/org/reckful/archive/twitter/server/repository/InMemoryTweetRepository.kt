@@ -69,7 +69,7 @@ class InMemoryTweetRepository : TweetRepository {
     }
 
     private fun Tweet.hasMedia(): Boolean {
-        return when(this) {
+        return when (this) {
             is PostTweet -> this.media.isNotEmpty()
             is ReplyTweet -> this.tweet.media.isNotEmpty()
             is RetweetTweet -> this.retweetOfMedia.isNotEmpty()
@@ -85,12 +85,13 @@ class InMemoryTweetRepository : TweetRepository {
     }
 
     private fun Tweet.containsText(text: String): Boolean {
-        return when(this) {
+        return when (this) {
             is ReplyTweet -> this.tweet.containsText(text)
             is PostTweet -> {
                 this.text.containsIgnoreCase(text) ||
                         this.quote?.text?.containsIgnoreCase(text) == true
             }
+
             is RetweetTweet -> {
                 this.retweetOfText.containsIgnoreCase(text) ||
                         this.quoteWithinRetweet?.text?.containsIgnoreCase(text) == true
@@ -120,7 +121,7 @@ class InMemoryTweetRepository : TweetRepository {
     }
 
     private fun Tweet.getAuthorHandle(): String {
-        return when(this) {
+        return when (this) {
             is PostTweet -> this.userHandle
             is ReplyTweet -> this.tweet.userHandle
             is RetweetTweet -> this.userHandle

@@ -9,5 +9,5 @@ import org.gradle.kotlin.dsl.getByType
  *
  * See https://github.com/gradle/gradle/issues/15383#issuecomment-779893192
  */
-internal val Project.libs : LibrariesForLibs
+internal val Project.libs: LibrariesForLibs
     get() = extensions.getByType()

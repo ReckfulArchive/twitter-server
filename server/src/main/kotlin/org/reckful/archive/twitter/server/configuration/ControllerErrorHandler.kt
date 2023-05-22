@@ -1,14 +1,14 @@
 package org.reckful.archive.twitter.server.configuration
 
+import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.springframework.http.HttpStatus
-import io.swagger.v3.oas.annotations.media.Content
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import kotlin.IllegalArgumentException as JavaIllegalArgumentException
 import kotlin.IllegalArgumentException as KotlinIllegalArgumentException
-import java.lang.IllegalArgumentException as JavaIllegalArgumentException
 
 data class Error(val errorMessage: String?)
 

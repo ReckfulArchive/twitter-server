@@ -11,11 +11,7 @@ import org.reckful.archive.twitter.server.service.ProfileService
 import org.reckful.archive.twitter.server.service.TweetService
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 import java.time.LocalDate
 
@@ -41,7 +37,11 @@ class TweetController(
         @RequestParam("type", required = false, defaultValue = "post")
         @Parameter(
             description = "Types of tweets to retrieve: post, reply, retweet. By default, only posts are returned.",
-            schema = Schema(type = "array", allowableValues = ["post", "reply", "retweet"], pattern = "^(post|reply|retweet)\$")
+            schema = Schema(
+                type = "array",
+                allowableValues = ["post", "reply", "retweet"],
+                pattern = "^(post|reply|retweet)\$"
+            )
         )
         types: List<String>,
 
@@ -58,7 +58,7 @@ class TweetController(
         @Parameter(
             description = "Retrieve tweets starting from the given date, inclusive. " +
                     "The accepted date format is defined by ISO 8601. Example: 2012-02-15.",
-            schema = Schema(type="string" ,format = "date", pattern = "^\\d{4}-\\d{2}-\\d{2}\$")
+            schema = Schema(type = "string", format = "date", pattern = "^\\d{4}-\\d{2}-\\d{2}\$")
         )
         fromDate: LocalDate?,
 
@@ -67,7 +67,7 @@ class TweetController(
         @Parameter(
             description = "Retrieve tweets starting from the given date, inclusive. " +
                     "The accepted date format is defined by ISO 8601. Example: 2020-07-15",
-            schema = Schema(type="string" ,format = "date", pattern = "^\\d{4}-\\d{2}-\\d{2}\$")
+            schema = Schema(type = "string", format = "date", pattern = "^\\d{4}-\\d{2}-\\d{2}\$")
         )
         toDate: LocalDate?,
 

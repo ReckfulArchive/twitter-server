@@ -16,4 +16,4 @@ class PostTweet(
     val media: List<TweetMedia> = emptyList(),
     val urls: List<String> = emptyList(),
     val text: String
-): Tweet(id = id, userHandle = userHandle, utcDateTime = utcDateTime)
+) : Tweet(id = id, userHandle = userHandle, utcDateTime = utcDateTime)

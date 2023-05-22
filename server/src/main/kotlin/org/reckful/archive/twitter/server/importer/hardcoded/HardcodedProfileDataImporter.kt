@@ -13,9 +13,11 @@ class HardcodedProfileDataImporter(
 ) : DataImporter {
 
     override fun import() {
-        profileRepository.saveAll(listOf(
-            PROFILE_BYRON
-        ))
+        profileRepository.saveAll(
+            listOf(
+                PROFILE_BYRON
+            )
+        )
     }
 
     private companion object {

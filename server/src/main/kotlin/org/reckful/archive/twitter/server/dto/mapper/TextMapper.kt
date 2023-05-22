@@ -2,8 +2,8 @@ package org.reckful.archive.twitter.server.dto.mapper
 
 import org.reckful.archive.twitter.server.dto.LinkTextTokenDTO
 import org.reckful.archive.twitter.server.dto.PlainTextTokenDTO
-import org.reckful.archive.twitter.server.dto.TextTokenDTO
 import org.reckful.archive.twitter.server.dto.TextDTO
+import org.reckful.archive.twitter.server.dto.TextTokenDTO
 import org.springframework.stereotype.Component
 
 // TODO refactor this when I'm sober, works for now

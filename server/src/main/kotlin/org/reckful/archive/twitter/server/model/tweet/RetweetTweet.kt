@@ -14,5 +14,5 @@ class RetweetTweet(
     val retweetUrls: List<String> = emptyList(),
 
     val quoteWithinRetweet: TweetQuote? = null
-): Tweet(id = id, userHandle = userHandle, utcDateTime = utcDateTime)
+) : Tweet(id = id, userHandle = userHandle, utcDateTime = utcDateTime)
 

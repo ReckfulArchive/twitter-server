@@ -1,14 +1,15 @@
 package org.reckful.archive.twitter.server.service
 
 import org.reckful.archive.twitter.server.dto.*
-import org.reckful.archive.twitter.server.dto.mapper.DateTimeMapper
 import org.reckful.archive.twitter.server.dto.mapper.CounterMapper
+import org.reckful.archive.twitter.server.dto.mapper.DateTimeMapper
 import org.reckful.archive.twitter.server.dto.mapper.TextMapper
 import org.reckful.archive.twitter.server.dto.tweet.PostTweetDTO
 import org.reckful.archive.twitter.server.dto.tweet.ReplyTweetDTO
 import org.reckful.archive.twitter.server.dto.tweet.RetweetTweetDTO
 import org.reckful.archive.twitter.server.dto.tweet.TweetDTO
-import org.reckful.archive.twitter.server.model.*
+import org.reckful.archive.twitter.server.model.Profile
+import org.reckful.archive.twitter.server.model.SortOrder
 import org.reckful.archive.twitter.server.model.tweet.*
 import org.reckful.archive.twitter.server.repository.ProfileRepository
 import org.reckful.archive.twitter.server.repository.TweetQueryParameters
@@ -62,7 +63,7 @@ class TweetService(
     }
 
     private fun typeToKClass(type: String): KClass<out Tweet> {
-        return when(type) {
+        return when (type) {
             "post" -> PostTweet::class
             "reply" -> ReplyTweet::class
             "retweet" -> RetweetTweet::class

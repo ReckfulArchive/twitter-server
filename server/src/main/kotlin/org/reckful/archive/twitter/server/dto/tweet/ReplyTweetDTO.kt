@@ -1,13 +1,12 @@
 package org.reckful.archive.twitter.server.dto.tweet
 
 import io.swagger.v3.oas.annotations.media.Schema
-import io.swagger.v3.oas.annotations.tags.Tag
 import org.reckful.archive.twitter.server.dto.*
 
 @Schema(
     name = "ReplyTweet",
     description = "A tweet that is part of a conversation or a thread. " +
-        "Contains handles that are being replied to (i.e profiles that are part of the conversation)"
+            "Contains handles that are being replied to (i.e profiles that are part of the conversation)"
 )
 class ReplyTweetDTO(
     id: String,

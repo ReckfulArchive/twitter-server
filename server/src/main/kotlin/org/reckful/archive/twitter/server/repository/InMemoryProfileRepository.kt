@@ -2,7 +2,6 @@ package org.reckful.archive.twitter.server.repository
 
 import org.reckful.archive.twitter.server.model.Profile
 import org.springframework.stereotype.Repository
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
