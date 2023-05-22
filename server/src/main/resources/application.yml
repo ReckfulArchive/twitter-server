@@ -1,3 +1,6 @@
+server:
+  port: 9550
+
 spring:
   jackson:
     default-property-inclusion: non_null
@@ -11,4 +14,4 @@ springdoc:
 importer:
   data:
     vicinitas:
-      tweets-tsv: /home/ignat/IdeaProjects/twitter-data/data/vicinitas/tweets.tsv
+      tweets-tsv: ~/twitter-data/data/vicinitas/tweets.tsv
