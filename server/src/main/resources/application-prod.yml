@@ -1,0 +1,15 @@
+server:
+  port: 9550
+
+openapi:
+  serverUrls:
+    - https://twitter-api.reckful-archive.org
+
+importer:
+  data:
+    vicinitas:
+      historical-tweets-tsv:
+        - /home/ignat/projects/reckfularchive/twitter-api/historical-tweets-byron.tsv
+      free-tweets-tsv:
+        - /home/ignat/projects/reckfularchive/twitter-api/free-tweets-reckful.tsv
+        - /home/ignat/projects/reckfularchive/twitter-api/free-tweets-playeverland.tsv
