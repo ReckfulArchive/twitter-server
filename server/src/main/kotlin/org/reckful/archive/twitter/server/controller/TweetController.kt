@@ -40,7 +40,6 @@ class TweetController(
             schema = Schema(
                 type = "array",
                 allowableValues = ["post", "reply", "retweet"],
-                pattern = "^(post|reply|retweet)\$"
             )
         )
         types: List<String>,

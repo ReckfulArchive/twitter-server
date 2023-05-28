@@ -4,30 +4,42 @@ import org.reckful.archive.twitter.server.importer.DataImporter
 import org.reckful.archive.twitter.server.model.Location
 import org.reckful.archive.twitter.server.model.tweet.*
 import org.reckful.archive.twitter.server.repository.TweetRepository
-import org.reckful.archive.twitter.vicinitas.TsvVicinitasTweetParser
+import org.reckful.archive.twitter.vicinitas.historical.TsvVicinitasHistoricalTweetParser
 import org.reckful.archive.twitter.vicinitas.VicinitasTweet
+import org.reckful.archive.twitter.vicinitas.free.TsvVicinitasFreeTweetParser
 import org.springframework.stereotype.Component
 
 @Component
 class VicinitasTweetDataImporter(
-    private val vicinitasDataConfiguration: VicinitasTweetDataConfiguration,
+    private val vicinitasDataConfiguration: VicinitasTweetDataProperties,
     private val tweetRepository: TweetRepository
 ) : DataImporter {
 
     override fun import() {
-        tweetRepository.saveAll(parseTweets())
+        tweetRepository.saveAll(getTweets())
     }
 
-    private fun parseTweets(): List<Tweet> {
-        val tsvTweetParser = TsvVicinitasTweetParser()
-        return vicinitasDataConfiguration.tweetsTsv.flatMap { tsvData ->
-            val tweets = tsvTweetParser.parse(tsvData)
-            tweets.map { map(it) }
+    private fun getTweets(): List<Tweet> {
+        val tweets = parseHistoricalTweets() + parseFreeTweets()
+        return tweets.map { map(it) }
+    }
+
+    private fun parseHistoricalTweets(): List<VicinitasTweet> {
+        val historicalTweetParser = TsvVicinitasHistoricalTweetParser()
+        return vicinitasDataConfiguration.historicalTweetsTsv.flatMap { tsvData ->
+            historicalTweetParser.parse(tsvData)
+        }
+    }
+
+    private fun parseFreeTweets(): List<VicinitasTweet> {
+        val freeTweetParser = TsvVicinitasFreeTweetParser()
+        return vicinitasDataConfiguration.freeTweetsTsv.flatMap { tsvData ->
+            freeTweetParser.parse(tsvData)
         }
     }
 
     private fun map(vicinitasTweet: VicinitasTweet): Tweet {
-        return when (vicinitasTweet.tweetType) {
+        return when (vicinitasTweet.tweetType.lowercase()) {
             "reply" -> mapReply(vicinitasTweet)
             "retweet" -> mapRetweet(vicinitasTweet)
             "tweet" -> mapTweet(vicinitasTweet)

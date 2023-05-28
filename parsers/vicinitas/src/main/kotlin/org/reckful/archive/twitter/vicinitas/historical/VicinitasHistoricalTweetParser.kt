@@ -1,18 +1,22 @@
-package org.reckful.archive.twitter.vicinitas
+package org.reckful.archive.twitter.vicinitas.historical
 
+import org.reckful.archive.twitter.vicinitas.VicinitasTweet
+import org.reckful.archive.twitter.vicinitas.VicinitasTweetMedia
+import org.reckful.archive.twitter.vicinitas.checkNotEmpty
+import org.reckful.archive.twitter.vicinitas.takeIfNotBlank
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Suppress("FunctionName")
-fun TsvVicinitasTweetParser() = VicinitasTweetParser(delimiter = "\t")
+fun TsvVicinitasHistoricalTweetParser() = VicinitasHistoricalTweetParser(delimiter = "\t")
 
-class VicinitasTweetParser(
+class VicinitasHistoricalTweetParser(
     private val delimiter: String
 ) {
     fun parse(file: File): List<VicinitasTweet> {
         val lines = file.readLines()
-        require(lines.isNotEmpty()) { "Expected the posts file \"$file\" to contain data" }
+        require(lines.isNotEmpty()) { "Expected the tweets file \"$file\" to contain data" }
 
         val header = lines[0]
         verifyHeader(header)
@@ -24,7 +28,7 @@ class VicinitasTweetParser(
     private fun verifyHeader(headerLine: String) {
         val tokens = headerLine.split(delimiter)
         val expectedColumns = 21
-        require(tokens.size == expectedColumns) { "Expected to have $expectedColumns columns in the posts file" }
+        require(tokens.size == expectedColumns) { "Expected to have $expectedColumns columns in the tweets file" }
         require(tokens == EXPECTED_HEADERS) { "Expected the posts to have the following columns: $EXPECTED_HEADERS" }
     }
 
@@ -41,22 +45,24 @@ class VicinitasTweetParser(
             retweets = checkNotEmpty(tokens[6]).toInt(),
             lang = checkNotEmpty(tokens[7]),
             tweetType = checkNotEmpty(tokens[8]),
-            quote = takeNotBlank(tokens[9]),
-            countryCode = takeNotBlank(tokens[10]),
-            place = takeNotBlank(tokens[11]),
-            latitude = takeNotBlank(tokens[12])?.toDouble(),
-            longitude = takeNotBlank(tokens[13])?.toDouble(),
+            quote = takeIfNotBlank(tokens[9]),
+            countryCode = takeIfNotBlank(tokens[10]),
+            place = takeIfNotBlank(tokens[11]),
+            latitude = takeIfNotBlank(tokens[12])?.toDouble(),
+            longitude = takeIfNotBlank(tokens[13])?.toDouble(),
             media = parseMedia(tokens),
             urls = parseUrls(tokens),
             text = checkNotEmpty(tokens[20])
         )
     }
 
-    private fun checkNotEmpty(s: String): String = s.also { check(it.isNotEmpty()) }
-    private fun takeNotBlank(s: String): String? = s.takeIf { it.isNotBlank() }
 
     private fun parseMedia(tokens: List<String>): List<VicinitasTweetMedia> {
-        val mediaTypes = tokens[14].takeIf { it.isNotBlank() }?.split(WHITESPACE_REGEX) ?: return emptyList()
+        val mediaTypes = tokens[14]
+            .takeIf { it.isNotBlank() }
+            ?.split(WHITESPACE_REGEX)
+            ?: return emptyList()
+
         return mediaTypes.mapIndexed { index, mediaType ->
             // media1 == 15
             // media2 == 16
