@@ -23,6 +23,8 @@ class TweetService(
     private val tweetRepository: TweetRepository,
     private val profileRepository: ProfileRepository,
 
+    private val mediaLocatorService: MediaLocatorService,
+
     private val dateTimeMapper: DateTimeMapper,
     private val counterMapper: CounterMapper,
     private val tweetTextMapper: TextMapper,
@@ -89,7 +91,7 @@ class TweetService(
                 text = postTweet.text,
                 knownUrls = postTweet.urls
             ),
-            media = postTweet.media.mapIndexed { index, tweetMedia -> tweetMedia.toDTO(index) },
+            media = postTweet.media.map { it.toDTO(postTweet) },
             quote = postTweet.quote?.let { quote ->
                 QuoteDTO(
                     tweetUrl = quote.quotedTweetUrl,
@@ -121,7 +123,7 @@ class TweetService(
             },
             replyToHandles = replyTweet.replyToHandles,
             text = tweetTextMapper.map(tweet.text),
-            media = tweet.media.mapIndexed { index, tweetMedia -> tweetMedia.toDTO(index) },
+            media = tweet.media.map { it.toDTO(tweet) },
             quote = tweet.quote?.let { quote ->
                 QuoteDTO(
                     tweetUrl = quote.quotedTweetUrl,
@@ -156,13 +158,13 @@ class TweetService(
             id = retweetTweet.id,
             twitterUrl = retweetTweet.getTwitterUrl(),
             profileName = profile.name,
-            retweetedProfilePicUrl = "TODO",
+            retweetedProfilePicUrl = mediaLocatorService.getProfilePictureUrl(retweetTweet.retweetOfHandle),
             retweetedProfileHandle = retweetTweet.retweetOfHandle,
             retweetedText = tweetTextMapper.map(
                 text = retweetTweet.retweetOfText,
                 knownUrls = retweetTweet.retweetUrls
             ),
-            retweetedMedia = retweetTweet.retweetOfMedia.mapIndexed { index, tweetMedia -> tweetMedia.toDTO(index) },
+            retweetedMedia = retweetTweet.retweetOfMedia.map { it.toDTO(retweetTweet) },
             retweetedQuote = retweetTweet.quoteWithinRetweet?.let { quote ->
                 QuoteDTO(
                     tweetUrl = quote.quotedTweetUrl,
@@ -177,33 +179,14 @@ class TweetService(
         return "https://twitter.com/${this.userHandle}/status/${this.id}"
     }
 
-    private fun TweetMedia.toDTO(index: Int = 0): MediaDTO {
-        val extension = getUrlFileType(this.originalUrl)
+    private fun TweetMedia.toDTO(context: Tweet): MediaDTO {
         return MediaDTO(
             type = when (this) {
                 is GifTweetMedia -> MediaDTO.Type.GIF
                 is PhotoTweetMedia -> MediaDTO.Type.PHOTO
                 is VideoTweetMedia -> MediaDTO.Type.VIDEO
             },
-            extension = extension,
-            url = getPermanentUrl(index, extension)
+            url = mediaLocatorService.getUrl(media = this, context = context)
         )
-    }
-
-    /**
-     * @return extension without the dot, like "mp4" or "jpg"
-     */
-    private fun getUrlFileType(url: String): String {
-        return url.substringAfterLast(".").substringBefore("?")
-    }
-
-    private fun TweetMedia.getPermanentUrl(index: Int, extension: String): String {
-        val dataMediaPath = when (this) {
-            is GifTweetMedia -> "gifs/by-tweet-id/${this.tweetId}.mp4"
-            is PhotoTweetMedia -> "photos/by-tweet-id/${this.tweetId}-$index.$extension"
-            is VideoTweetMedia -> "videos/by-tweet-id/${this.tweetId}.mp4"
-        }
-        val basePath = "https://reckfularchive.github.io/twitter/data/media"
-        return "$basePath/$dataMediaPath"
     }
 }

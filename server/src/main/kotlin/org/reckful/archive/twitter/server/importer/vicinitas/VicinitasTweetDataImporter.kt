@@ -4,9 +4,9 @@ import org.reckful.archive.twitter.server.importer.DataImporter
 import org.reckful.archive.twitter.server.model.Location
 import org.reckful.archive.twitter.server.model.tweet.*
 import org.reckful.archive.twitter.server.repository.TweetRepository
-import org.reckful.archive.twitter.vicinitas.historical.TsvVicinitasHistoricalTweetParser
 import org.reckful.archive.twitter.vicinitas.VicinitasTweet
 import org.reckful.archive.twitter.vicinitas.free.TsvVicinitasFreeTweetParser
+import org.reckful.archive.twitter.vicinitas.historical.TsvVicinitasHistoricalTweetParser
 import org.springframework.stereotype.Component
 
 @Component
@@ -182,9 +182,9 @@ class VicinitasTweetDataImporter(
 
     private fun getMedia(vicinitasTweet: VicinitasTweet): List<TweetMedia> {
         return vicinitasTweet.media
-            .map {
+            .mapIndexed { index, it ->
                 when (it.type) {
-                    "photo" -> PhotoTweetMedia(vicinitasTweet.tweetId, it.url)
+                    "photo" -> PhotoTweetMedia(vicinitasTweet.tweetId, it.url, index)
                     "video" -> VideoTweetMedia(vicinitasTweet.tweetId, it.url)
                     "animated_gif" -> GifTweetMedia(vicinitasTweet.tweetId, it.url)
                     else -> throw IllegalStateException("Unable to parse media type ${it.type}")
