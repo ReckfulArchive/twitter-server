@@ -26,7 +26,7 @@ class HardcodedProfileDataImporter(
         following = 561,
         followers = 379910,
         profilePicUrl = mediaLocatorService.getProfilePictureUrl("byron"),
-        bannerUrl = mediaLocatorService.getProfilePictureUrl("byron")
+        bannerUrl = mediaLocatorService.getBannerUrl("byron")
     )
 
     private val reckful = Profile(
@@ -41,7 +41,7 @@ class HardcodedProfileDataImporter(
         following = 1,
         followers = 19306,
         profilePicUrl = mediaLocatorService.getProfilePictureUrl("reckful"),
-        bannerUrl = mediaLocatorService.getProfilePictureUrl("reckful")
+        bannerUrl = mediaLocatorService.getBannerUrl("reckful")
 
     )
 
@@ -57,7 +57,7 @@ class HardcodedProfileDataImporter(
         following = 34,
         followers = 25583,
         profilePicUrl = mediaLocatorService.getProfilePictureUrl("playeverland"),
-        bannerUrl = mediaLocatorService.getProfilePictureUrl("playeverland")
+        bannerUrl = mediaLocatorService.getBannerUrl("playeverland")
     )
 
     override fun import() {
