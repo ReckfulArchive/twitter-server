@@ -1,0 +1,8 @@
+importer:
+  data:
+    vicinitas:
+      historical-tweets-tsv:
+        - /app/data/vicinitas/historical-tweets-byron.tsv
+      free-tweets-tsv:
+        - /app/data/vicinitas/free-tweets-reckful.tsv
+        - /app/data/vicinitas/free-tweets-playeverland.tsv

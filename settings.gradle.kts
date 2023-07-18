@@ -1,6 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
-rootProject.name = "twitter-data"
+rootProject.name = "twitter-server"
 
 pluginManagement {
     includeBuild("build-logic")

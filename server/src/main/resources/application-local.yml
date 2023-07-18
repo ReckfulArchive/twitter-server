@@ -9,7 +9,7 @@ importer:
   data:
     vicinitas:
       historical-tweets-tsv:
-        - /home/ignat/IdeaProjects/twitter-data/data/vicinitas/historical-tweets-byron.tsv
+        - /your/path/to/project/data/vicinitas/historical-tweets-byron.tsv
       free-tweets-tsv:
-        - /home/ignat/IdeaProjects/twitter-data/data/vicinitas/free-tweets-reckful.tsv
-        - /home/ignat/IdeaProjects/twitter-data/data/vicinitas/free-tweets-playeverland.tsv
+        - /your/path/to/project/data/vicinitas/free-tweets-reckful.tsv
+        - /your/path/to/project/data/vicinitas/free-tweets-playeverland.tsv
