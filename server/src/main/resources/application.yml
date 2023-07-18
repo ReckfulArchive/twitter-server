@@ -8,10 +8,9 @@ openapi:
   info:
     title: Reckful's Twitter Archive
     short-description: API endpoints for querying tweets of or related to Byron (Reckful) Bernstein.
-    source-code-link: https://github.com/ReckfulArchive/twitter
+    source-code-link: https://github.com/ReckfulArchive/twitter-server
 
 springdoc:
   swagger-ui:
-    path: /swagger-ui.html
     default-models-expand-depth: 0
   disable-i18n: true
