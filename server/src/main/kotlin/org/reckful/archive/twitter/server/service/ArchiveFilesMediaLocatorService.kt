@@ -17,13 +17,13 @@ class ArchiveFilesMediaLocatorService : MediaLocatorService {
     override fun getUrl(media: TweetMedia, context: Tweet): String {
         val tweetId = context.id
         val mediaPath = when (media) {
-            is GifTweetMedia -> "gifs/$tweetId.mp4"
+            is GifTweetMedia -> "gifs/by-tweet-id/$tweetId.mp4"
             is PhotoTweetMedia -> {
                 val extension = getUrlFileType(media.originalUrl)
                 "photos/${tweetId}-${media.index}.$extension"
             }
 
-            is VideoTweetMedia -> "videos/$tweetId.mp4"
+            is VideoTweetMedia -> "videos/by-tweet-id/$tweetId.mp4"
         }
         return "$FILES_PATH/${context.userHandle.lowercase()}/media/$mediaPath"
     }
