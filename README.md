@@ -1,5 +1,7 @@
 # Reckful's Twitter Archive
 
+[![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/s55e.svg)](https://twitter-api.reckful-archive.org/)
+
 The backend server for storing and querying the tweets of or related to Byron (Reckful) Bernstein.
 
 The API is available at
