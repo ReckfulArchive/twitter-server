@@ -110,7 +110,6 @@ class TextMapper {
 
     private companion object {
         private val HANDLE_MENTION_PATTERN = "(?<!\\w)(@\\w{1,15})".toRegex().toPattern()
-        private val HANDLE_MENTION_PATTERN1 = "(?:^|.*\\s+)[@]((?=.*[A-Za-z0-9])[\\w-_]+).*".toRegex().toPattern()
     }
 }
 
