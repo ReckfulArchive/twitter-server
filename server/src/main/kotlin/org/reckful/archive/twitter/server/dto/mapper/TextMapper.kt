@@ -36,14 +36,14 @@ class TextMapper {
         return result.filter { it.text.isNotBlank() }
     }
 
-    private fun extractHandleMentions(text: String): List<String> {
+    // internal for testing, private otherwise
+    internal fun extractHandleMentions(text: String): List<String> {
         val handleMatcher = HANDLE_MENTION_PATTERN.matcher(text)
-
         val handles = mutableListOf<String>()
         do {
             val found = handleMatcher.find()
             if (found) {
-                handles.add(handleMatcher.group(2).trim())
+                handles.add(handleMatcher.group(1).trim())
             }
         } while (found)
         return handles
@@ -109,8 +109,7 @@ class TextMapper {
     }
 
     private companion object {
-        private val HANDLE_MENTION_PATTERN = "([^\\w+](@\\w+)[^\\w+])".toRegex().toPattern()
-        private val HANDLE_MENTION_PATTERN1 = "(?:^|.*\\s+)[@]((?=.*[A-Za-z0-9])[\\w-_]+).*".toRegex().toPattern()
+        private val HANDLE_MENTION_PATTERN = "(?<!\\w)(@\\w{1,15})".toRegex().toPattern()
     }
 }
 
