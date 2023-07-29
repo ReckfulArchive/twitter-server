@@ -36,7 +36,8 @@ class TextMapper {
         return result.filter { it.text.isNotBlank() }
     }
 
-    private fun extractHandleMentions(text: String): List<String> {
+    // internal for testing, private otherwise
+    internal fun extractHandleMentions(text: String): List<String> {
         val handleMatcher = HANDLE_MENTION_PATTERN.matcher(text)
 
         val handles = mutableListOf<String>()

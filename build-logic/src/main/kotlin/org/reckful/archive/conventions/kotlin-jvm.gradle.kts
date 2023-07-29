@@ -14,3 +14,7 @@ tasks.withType<KotlinCompile>().configureEach {
     }
 }
 
+dependencies {
+    testImplementation(kotlin("test"))
+}
+
