@@ -66,6 +66,16 @@ class TextMapperTest {
         )
     }
 
+    @Test
+    fun `should not parse email surrounded by handles`() {
+        testExtractHandles(
+            input = "@LaCookieFreak @BenCHOPP @RajjOfficial test@everland.com @derekevxd this is great!",
+            expectedHandles = listOf(
+                "@LaCookieFreak", "@BenCHOPP", "@RajjOfficial", "@derekevxd"
+            )
+        )
+    }
+
     private fun testExtractHandles(input: String, expectedHandles: List<String>) {
         val actualHandles = TextMapper().extractHandleMentions(input)
         assertEquals(expectedHandles.toList(), actualHandles)
