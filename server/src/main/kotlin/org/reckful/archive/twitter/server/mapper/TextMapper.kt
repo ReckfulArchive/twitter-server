@@ -1,4 +1,4 @@
-package org.reckful.archive.twitter.server.dto.mapper
+package org.reckful.archive.twitter.server.mapper
 
 import org.reckful.archive.twitter.server.dto.LinkTextTokenDTO
 import org.reckful.archive.twitter.server.dto.PlainTextTokenDTO

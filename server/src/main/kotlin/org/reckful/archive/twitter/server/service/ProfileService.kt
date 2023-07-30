@@ -1,9 +1,9 @@
 package org.reckful.archive.twitter.server.service
 
 import org.reckful.archive.twitter.server.dto.ProfileDTO
-import org.reckful.archive.twitter.server.dto.mapper.CounterMapper
-import org.reckful.archive.twitter.server.dto.mapper.DateTimeMapper
-import org.reckful.archive.twitter.server.dto.mapper.TextMapper
+import org.reckful.archive.twitter.server.mapper.CounterMapper
+import org.reckful.archive.twitter.server.mapper.DateTimeMapper
+import org.reckful.archive.twitter.server.mapper.TextMapper
 import org.reckful.archive.twitter.server.model.Profile
 import org.reckful.archive.twitter.server.repository.ProfileRepository
 import org.springframework.stereotype.Service

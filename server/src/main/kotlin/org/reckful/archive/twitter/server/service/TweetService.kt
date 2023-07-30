@@ -1,13 +1,13 @@
 package org.reckful.archive.twitter.server.service
 
 import org.reckful.archive.twitter.server.dto.*
-import org.reckful.archive.twitter.server.dto.mapper.CounterMapper
-import org.reckful.archive.twitter.server.dto.mapper.DateTimeMapper
-import org.reckful.archive.twitter.server.dto.mapper.TextMapper
 import org.reckful.archive.twitter.server.dto.tweet.PostTweetDTO
 import org.reckful.archive.twitter.server.dto.tweet.ReplyTweetDTO
 import org.reckful.archive.twitter.server.dto.tweet.RetweetTweetDTO
 import org.reckful.archive.twitter.server.dto.tweet.TweetDTO
+import org.reckful.archive.twitter.server.mapper.CounterMapper
+import org.reckful.archive.twitter.server.mapper.DateTimeMapper
+import org.reckful.archive.twitter.server.mapper.TextMapper
 import org.reckful.archive.twitter.server.model.Profile
 import org.reckful.archive.twitter.server.model.SortOrder
 import org.reckful.archive.twitter.server.model.tweet.*
