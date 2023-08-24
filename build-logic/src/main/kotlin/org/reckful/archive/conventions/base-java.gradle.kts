@@ -17,6 +17,3 @@ tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
-}
